@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CricketX — Player Performance & Analytics Platform</title>
+  <meta name="description" content="Professional Cricket Player Performance & Analytics Platform. Explore, analyze, compare and rank cricket players with mathematical precision." />
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Chart.js CDN with safe fallbacks -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="cx-header">
+    <div class="cx-header-inner">
+      <!-- CricketX Brand Logo -->
+      <a href="#/dashboard" class="cx-brand">
+        <div class="cx-brand-logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#070d19" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 22l8-8"></path>
+            <path d="M14 6l4 4-8 8-4-4 8-8z"></path>
+            <circle cx="18" cy="18" r="3" fill="#f59e0b" stroke="#070d19"></circle>
+          </svg>
+        </div>
+        <div class="cx-brand-text">
+          <div class="cx-brand-name">CRICKET<span>X</span></div>
+          <div class="cx-brand-tagline">Explore • Analyze • Compare • Dominate</div>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="cx-nav">
+        <a href="#/dashboard" class="cx-nav-link active">
+          <span class="nav-icon">📊</span> Overview
+        </a>
+        <a href="#/players" class="cx-nav-link">
+          <span class="nav-icon">🏏</span> Players
+        </a>
+        <a href="#/teams" class="cx-nav-link">
+          <span class="nav-icon">🛡️</span> Teams
+        </a>
+        <a href="#/compare" class="cx-nav-link">
+          <span class="nav-icon">⚔️</span> Compare
+        </a>
+        <a href="#/rankings" class="cx-nav-link">
+          <span class="nav-icon">🏆</span> Rankings
+        </a>
+        <a href="#/playing-xi" class="cx-nav-link">
+          <span class="nav-icon">⚡</span> Best Playing XI
+        </a>
+        <a href="#/add-player" class="cx-nav-link">
+          <span class="nav-icon">➕</span> Submit Player
+        </a>
+      </nav>
+
+      <!-- Header Search & Actions -->
+      <div class="cx-header-actions">
+        <!-- Quick Search -->
+        <div class="cx-search-box">
+          <svg class="cx-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="headerQuickSearch" class="cx-search-input" placeholder="Quick Search ('/' to focus)" />
+        </div>
+
+        <!-- Floating Compare Pill -->
+        <div id="comparePill" class="cx-compare-pill" onclick="Router.navigate('/compare')">
+          <span>⚔️ Compare</span>
+          <span id="compareBadge" class="cx-compare-badge">0</span>
+        </div>
+
+        <!-- Admin Portal Access -->
+        <button id="adminHeaderBtn" class="cx-admin-btn" onclick="Router.navigate('/admin')">
+          🔒 Admin Login
+        </button>
+
+        <!-- Mobile Menu Hamburger -->
+        <button id="mobileMenuToggle" class="cx-menu-toggle" aria-label="Toggle Navigation Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main class="cx-main">
+
+    <!-- ==========================================
+         PAGE 1: HOME / OVERVIEW DASHBOARD
+         ========================================== -->
+    <div id="view-dashboard" class="cx-view active">
+      <!-- Hero Section -->
+      <section class="cx-hero">
+        <div class="cx-hero-content">
+          <div class="cx-hero-badge">
+            <span>●</span> Powered by CricketX Analytical Engine
+          </div>
+          <h1 class="cx-hero-title">
+            Discover the Numbers Behind <span class="highlight">Every Great Player.</span>
+          </h1>
+          <p class="cx-hero-subtitle">
+            Unleash professional-grade performance modeling, head-to-head comparisons, and data-driven insights. Built for cricket coaches, analysts, and passionate enthusiasts.
+          </p>
+          <div class="cx-hero-actions">
+            <a href="#/players" class="cx-btn cx-btn-primary cx-btn-lg">
+              🏏 Explore Players Directory &rarr;
+            </a>
+            <a href="#/compare" class="cx-btn cx-btn-secondary cx-btn-lg">
+              ⚔️ Head-to-Head Comparison
+            </a>
+            <a href="#/playing-xi" class="cx-btn cx-btn-gold cx-btn-lg">
+              ⚡ Recommended Playing XI
+            </a>
+          </div>
+
+          <!-- Formula Banner from Project Specification -->
+          <div class="cx-formula-banner">
+            <div>
+              <div class="cx-formula-label">Official Performance Metric Formula</div>
+              <div class="cx-formula-math">
+                Score = (<span class="factor-bat">Batting × 40%</span>) + (<span class="factor-bowl">Bowling × 25%</span>) + (<span class="factor-field">Fielding × 20%</span>) + (<span class="factor-fit">Fitness × 15%</span>)
+              </div>
+            </div>
+            <div class="cx-formula-classes">
+              <span class="cx-badge badge-excellent">85–100 Excellent</span>
+              <span class="cx-badge badge-good">70–84 Good</span>
+              <span class="cx-badge badge-average">50–69 Average</span>
+              <span class="cx-badge badge-needs-improvement">&lt;50 Needs Imp.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Database KPI Metric Cards -->
+      <section class="cx-kpi-grid">
+        <div class="cx-kpi-card" style="--kpi-accent: #00d084;">
+          <div class="cx-kpi-head">
+            <span class="cx-kpi-title">Total Players</span>
+            <span class="cx-kpi-icon">🏏</span>
+          </div>
+          <div id="kpiTotalPlayers" class="cx-kpi-value">0</div>
+          <div class="cx-kpi-sub">Across All Teams</div>
+        </div>
+
+        <div class="cx-kpi-card" style="--kpi-accent: #38bdf8;">
+          <div class="cx-kpi-head">
+            <span class="cx-kpi-title">Franchise Teams</span>
+            <span class="cx-kpi-icon">🛡️</span>
+          </div>
+          <div id="kpiTotalTeams" class="cx-kpi-value">0</div>
+          <div class="cx-kpi-sub">Active Squad Rosters</div>
+        </div>
+
+        <div class="cx-kpi-card" style="--kpi-accent: #10b981;">
+          <div class="cx-kpi-head">
+            <span class="cx-kpi-title">Verified Players</span>
+            <span class="cx-kpi-icon">✓</span>
+          </div>
+          <div id="kpiVerifiedPlayers" class="cx-kpi-value">0</div>
+          <div class="cx-kpi-sub">Official Records</div>
+        </div>
+
+        <div class="cx-kpi-card" style="--kpi-accent: #f59e0b;">
+          <div class="cx-kpi-head">
+            <span class="cx-kpi-title">Pending Records</span>
+            <span class="cx-kpi-icon">⏳</span>
+          </div>
+          <div id="kpiPendingPlayers" class="cx-kpi-value">0</div>
+          <div class="cx-kpi-sub">Awaiting Review</div>
+        </div>
+
+        <div class="cx-kpi-card" style="--kpi-accent: #fbbf24;">
+          <div class="cx-kpi-head">
+            <span class="cx-kpi-title">Highest Score</span>
+            <span class="cx-kpi-icon">👑</span>
+          </div>
+          <div id="kpiHighestScore" class="cx-kpi-value">0</div>
+          <div id="kpiHighestSub" class="cx-kpi-sub">Platform Leader</div>
+        </div>
+
+        <div class="cx-kpi-card" style="--kpi-accent: #a855f7;">
+          <div class="cx-kpi-head">
+            <span class="cx-kpi-title">Average Performance</span>
+            <span class="cx-kpi-icon">📈</span>
+          </div>
+          <div id="kpiAverageScore" class="cx-kpi-value">0</div>
+          <div class="cx-kpi-sub">Weighted Index Mean</div>
+        </div>
+      </section>
+
+      <!-- Live Dynamic Chart.js Analytics Grid -->
+      <section class="cx-charts-grid">
+        <!-- Chart 1: Performance Distribution -->
+        <div class="cx-chart-card">
+          <div class="cx-chart-head">
+            <div class="cx-chart-title">
+              <span>📊 Performance Score Distribution</span>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">By Category Classification</span>
+          </div>
+          <div class="cx-chart-body">
+            <canvas id="dashChartDistribution"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Players by Role -->
+        <div class="cx-chart-card">
+          <div class="cx-chart-head">
+            <div class="cx-chart-title">
+              <span>🎯 Players by Playing Role</span>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Squad Composition</span>
+          </div>
+          <div class="cx-chart-body">
+            <canvas id="dashChartRole"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: Team Performance Comparison -->
+        <div class="cx-chart-card">
+          <div class="cx-chart-head">
+            <div class="cx-chart-title">
+              <span>🛡️ Team Performance Comparison</span>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Franchise Squad Averages</span>
+          </div>
+          <div class="cx-chart-body">
+            <canvas id="dashChartTeamAverages"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Batting vs Bowling Ratings -->
+        <div class="cx-chart-card">
+          <div class="cx-chart-head">
+            <div class="cx-chart-title">
+              <span>⚡ Batting vs Bowling Ratings</span>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Top Performers Head-to-Head</span>
+          </div>
+          <div class="cx-chart-body">
+            <canvas id="dashChartBatVsBowl"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Top 5 Verified Players Spotlight -->
+      <section style="margin-bottom: 2.75rem;">
+        <div class="cx-section-head">
+          <div class="cx-section-title-wrap">
+            <h2>👑 Top 5 Verified Players</h2>
+            <p>Leading cricket stars ranked by composite performance index.</p>
+          </div>
+          <a href="#/rankings" class="cx-btn cx-btn-secondary cx-btn-sm">View Full Rankings &rarr;</a>
+        </div>
+        <div id="dashboardTop5Grid" class="cx-players-grid"></div>
+      </section>
+
+      <!-- Category Spotlights: Batsmen, Bowlers, All-rounders, Keepers -->
+      <section style="margin-bottom: 2.75rem;">
+        <div class="cx-section-head">
+          <div class="cx-section-title-wrap">
+            <h2>🌟 Role-Specific Leaders</h2>
+            <p>Elite specialists in batting, bowling, all-round utility, and glovework.</p>
+          </div>
+        </div>
+        <div class="cx-spotlights-grid">
+          <div class="cx-spotlight-box">
+            <h3>🏏 Best Batsmen</h3>
+            <div id="dashBestBatsmenList"></div>
+          </div>
+          <div class="cx-spotlight-box">
+            <h3>🎯 Best Bowlers</h3>
+            <div id="dashBestBowlersList"></div>
+          </div>
+          <div class="cx-spotlight-box">
+            <h3>⚡ Best All-Rounders</h3>
+            <div id="dashBestAllroundersList"></div>
+          </div>
+          <div class="cx-spotlight-box">
+            <h3>🧤 Best Wicketkeepers</h3>
+            <div id="dashBestKeepersList"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recently Updated Player Records Table -->
+      <section style="margin-bottom: 2.5rem;">
+        <div class="cx-section-head">
+          <div class="cx-section-title-wrap">
+            <h2>📋 Recently Updated Player Records</h2>
+            <p>Latest performance evaluations and updates stored in the persistent database.</p>
+          </div>
+        </div>
+        <div class="cx-table-wrap">
+          <table class="cx-table">
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Role</th>
+                <th>Franchise</th>
+                <th>Verification</th>
+                <th class="text-right">Performance Score</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="dashRecentTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==========================================
+         PAGE 2: PLAYER DIRECTORY
+         ========================================== -->
+    <div id="view-players" class="cx-view">
+      <div class="cx-section-head">
+        <div class="cx-section-title-wrap">
+          <h2>🏏 Cricket Player Directory</h2>
+          <p>Explore, filter, and analyze verified cricket player profiles.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <a href="#/add-player" class="cx-btn cx-btn-primary">➕ Submit Player Record</a>
+        </div>
+      </div>
+
+      <!-- Advanced Filter & Search Toolbar -->
+      <div class="cx-filter-toolbar">
+        <div class="cx-filter-row-top">
+          <!-- Live Search Bar -->
+          <div class="cx-filter-search">
+            <input 
+              type="text" 
+              id="playerDirectorySearch" 
+              class="cx-input" 
+              placeholder="Search players by name, country, or team..." 
+              oninput="App.handleFilterChange()" 
+            />
+          </div>
+
+          <!-- Team Filter -->
+          <div>
+            <select id="playerDirectoryTeamFilter" class="cx-select" onchange="App.handleFilterChange()">
+              <option value="">All Teams / Franchises</option>
+              <option value="1">Chennai Super Kings (CSK)</option>
+              <option value="2">Mumbai Indians (MI)</option>
+              <option value="3">Royal Challengers Bengaluru (RCB)</option>
+              <option value="4">Kolkata Knight Riders (KKR)</option>
+              <option value="5">Gujarat Titans (GT)</option>
+              <option value="6">Rajasthan Royals (RR)</option>
+              <option value="7">Sunrisers Hyderabad (SRH)</option>
+              <option value="8">Delhi Capitals (DC)</option>
+            </select>
+          </div>
+
+          <!-- Performance Category Filter -->
+          <div>
+            <select id="playerDirectoryCategoryFilter" class="cx-select" onchange="App.handleFilterChange()">
+              <option value="All">All Categories</option>
+              <option value="Excellent">Excellent (85-100)</option>
+              <option value="Good">Good (70-84)</option>
+              <option value="Average">Average (50-69)</option>
+              <option value="Needs Improvement">Needs Improvement (&lt;50)</option>
+            </select>
+          </div>
+
+          <!-- Sort Filter -->
+          <div>
+            <select id="playerDirectorySort" class="cx-select" onchange="App.handleFilterChange()">
+              <option value="score_desc">Highest Performance Score</option>
+              <option value="runs_desc">Most Career Runs</option>
+              <option value="wickets_desc">Most Career Wickets</option>
+              <option value="bat_avg_desc">Highest Batting Average</option>
+              <option value="strike_rate_desc">Highest Strike Rate</option>
+              <option value="batting_score_desc">Highest Batting Rating</option>
+              <option value="bowling_score_desc">Highest Bowling Rating</option>
+              <option value="name_asc">Name (A-Z)</option>
+            </select>
+          </div>
+
+          <button class="cx-btn cx-btn-secondary" onclick="App.resetPlayerFilters()">Reset</button>
+        </div>
+
+        <div class="cx-filter-row-bottom">
+          <!-- Role Filter Pills -->
+          <div class="cx-role-pills">
+            <button class="cx-role-pill-btn active" onclick="App.handleRoleFilter('All', this)">All Roles</button>
+            <button class="cx-role-pill-btn" onclick="App.handleRoleFilter('Batsman', this)">Batsman</button>
+            <button class="cx-role-pill-btn" onclick="App.handleRoleFilter('Bowler', this)">Bowler</button>
+            <button class="cx-role-pill-btn" onclick="App.handleRoleFilter('All-Rounder', this)">All-Rounder</button>
+            <button class="cx-role-pill-btn" onclick="App.handleRoleFilter('Wicketkeeper', this)">Wicketkeeper</button>
+          </div>
+
+          <!-- Min Score Range Slider -->
+          <div class="cx-range-wrap">
+            <span>Min Score:</span>
+            <input 
+              type="range" 
+              id="minScoreSlider" 
+              class="cx-range-slider" 
+              min="0" 
+              max="95" 
+              value="0" 
+              step="5" 
+              oninput="App.handleMinScoreChange(this.value)" 
+            />
+            <span id="sliderValDisplay" style="font-weight: 800; color: var(--accent-green); width: 35px;">0+</span>
+          </div>
+
+          <!-- View Mode Toggle -->
+          <div class="cx-view-toggle">
+            <button id="btnViewGrid" class="cx-view-toggle-btn active" onclick="App.toggleDirectoryView('grid')" title="Grid View">
+              ☷ Grid
+            </button>
+            <button id="btnViewTable" class="cx-view-toggle-btn" onclick="App.toggleDirectoryView('table')" title="Table View">
+              ☰ Table
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Player Count Indicator -->
+      <div id="playerDirectoryCount" style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+        Loading player records...
+      </div>
+
+      <!-- Players Content Area -->
+      <div id="playersContentArea"></div>
+    </div>
+
+    <!-- ==========================================
+         PAGE 3: COMPLETE PLAYER PROFILE
+         (Populated dynamically by ProfileView.load)
+         ========================================== -->
+    <div id="view-profile" class="cx-view"></div>
+
+    <!-- ==========================================
+         PAGE 4: PLAYER COMPARISON
+         (Populated dynamically by CompareView.load)
+         ========================================== -->
+    <div id="view-compare" class="cx-view"></div>
+
+    <!-- ==========================================
+         PAGE 5: TEAMS DIRECTORY
+         ========================================== -->
+    <div id="view-teams" class="cx-view">
+      <div class="cx-section-head">
+        <div class="cx-section-title-wrap">
+          <h2>🛡️ Cricket Franchise Teams</h2>
+          <p>Franchise squads, championship records, and team performance metrics.</p>
+        </div>
+      </div>
+      <div id="teamsGrid" class="cx-kpi-grid"></div>
+    </div>
+
+    <!-- ==========================================
+         PAGE 5B: SINGLE TEAM SQUAD DETAIL
+         ========================================== -->
+    <div id="view-team-detail" class="cx-view"></div>
+
+    <!-- ==========================================
+         PAGE 6: BEST PLAYING XI RECOMMENDATIONS
+         ========================================== -->
+    <div id="view-playing-xi" class="cx-view"></div>
+
+    <!-- ==========================================
+         PAGE 7: RANKINGS
+         ========================================== -->
+    <div id="view-rankings" class="cx-view"></div>
+
+    <!-- ==========================================
+         PAGE 8: SUBMIT PLAYER RECORD
+         ========================================== -->
+    <div id="view-add-player" class="cx-view"></div>
+
+    <!-- ==========================================
+         PAGE 9: ADMIN AUTHENTICATION & MANAGEMENT
+         ========================================== -->
+    <div id="view-admin" class="cx-view"></div>
+
+  </main>
+
+  <!-- ==========================================
+       MODALS
+       ========================================== -->
+
+  <!-- Edit Player Modal -->
+  <div id="editModal" class="cx-modal-backdrop">
+    <div class="cx-modal cx-modal-lg">
+      <div class="cx-modal-head">
+        <div class="cx-modal-title">✏️ Edit Player Profile & Performance Scores</div>
+        <button class="cx-modal-close" onclick="App.closeModal('editModal')">&times;</button>
+      </div>
+      <div id="editModalBody" class="cx-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Compare Selector Modal -->
+  <div id="compareSelectorModal" class="cx-modal-backdrop">
+    <div class="cx-modal">
+      <div class="cx-modal-head">
+        <div class="cx-modal-title">⚔️ Select Players to Compare</div>
+        <button class="cx-modal-close" onclick="App.closeModal('compareSelectorModal')">&times;</button>
+      </div>
+      <div class="cx-modal-body">
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem;">
+          Choose 2 to 4 players from the database to compare side-by-side.
+        </p>
+        <div id="compareSelectorList"></div>
+      </div>
+      <div class="cx-modal-foot">
+        <button class="cx-btn cx-btn-primary" onclick="App.closeModal('compareSelectorModal')">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="cx-toast-container"></div>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="cx-footer">
+    <div class="cx-footer-inner">
+      <div>
+        <div style="font-weight: 800; font-size: 1.15rem; color: #ffffff; display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.35rem;">
+          CRICKET<span style="color: var(--accent-green);">X</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.8rem; max-width: 480px; line-height: 1.5;">
+          CricketX Player Performance & Analytics Platform. Performance Formula: (Batting × 40%) + (Bowling × 25%) + (Fielding × 20%) + (Fitness × 15%). Designed for coaches, captains, and cricket analysts.
+        </p>
+      </div>
+
+      <div class="cx-footer-links">
+        <a href="#/dashboard">Overview</a>
+        <a href="#/players">Players</a>
+        <a href="#/teams">Teams</a>
+        <a href="#/compare">Compare</a>
+        <a href="#/rankings">Rankings</a>
+        <a href="#/playing-xi">Best Playing XI</a>
+        <a href="#/admin">Admin Portal</a>
+      </div>
+    </div>
+    <div style="max-width: 1440px; margin: 1.5rem auto 0 auto; padding-top: 1rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); flex-wrap: wrap; gap: 0.5rem;">
+      <div>© 2025 CricketX Analytics Platform. All rights reserved. Demo data is illustrative for analysis.</div>
+      <div>Designed with Dark Navy, Cricket Green & Championship Gold</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/compare.js"></script>
+  <script src="js/playingXI.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+/* ==========================================================================
+   CRICKETX — RESPONSIVE STYLES
+   Mobile, Tablet, and Desktop Breakpoints
+   ========================================================================== */
+
+/* Large Tablets and Small Desktops (max-width: 1100px) */
+@media (max-width: 1100px) {
+  .cx-charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cx-sw-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cx-profile-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cx-profile-score-box {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Medium Tablets & Mobile (max-width: 860px) */
+@media (max-width: 860px) {
+  .cx-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .cx-menu-toggle {
+    display: block;
+  }
+
+  .cx-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cx-nav.mobile-open {
+    display: flex;
+  }
+
+  .cx-nav-link {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  .cx-hero {
+    padding: 2.25rem 1.5rem;
+  }
+
+  .cx-hero-title {
+    font-size: 2.1rem;
+  }
+
+  .cx-hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .cx-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cx-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cx-filter-row-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cx-filter-row-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cx-podium-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cx-podium-step {
+    width: 100%;
+  }
+
+  .cx-podium-step.rank-1 .cx-podium-block,
+  .cx-podium-step.rank-2 .cx-podium-block,
+  .cx-podium-step.rank-3 .cx-podium-block {
+    height: auto;
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* Mobile Devices (max-width: 600px) */
+@media (max-width: 600px) {
+  .cx-main {
+    padding: 1rem 0.85rem 2.5rem 0.85rem;
+  }
+
+  .cx-brand-tagline {
+    display: none;
+  }
+
+  .cx-search-box {
+    display: none; /* Accessible in drawer/filter on mobile */
+  }
+
+  .cx-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cx-players-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cx-hero-title {
+    font-size: 1.75rem;
+  }
+
+  .cx-profile-main {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cx-profile-styles {
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .cx-profile-meta-tags {
+    justify-content: center;
+  }
+
+  .cx-compare-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .cx-formula-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cx-formula-classes {
+    flex-wrap: wrap;
+  }
+}
