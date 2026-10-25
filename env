@@ -1,3 +1,0 @@
-PORT=3000
-JWT_SECRET=cricketx_secure_jwt_secret_token_key_2025_99x
-NODE_ENV=development
